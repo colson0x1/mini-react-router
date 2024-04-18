@@ -3,6 +3,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/Error';
 import HomePage from './pages/Home';
+import ProductDetailPage from './pages/ProductDetail';
 import ProductsPage from './pages/Products';
 import RootLayout from './Root';
 
@@ -68,6 +69,59 @@ const router = createBrowserRouter([
   // error page as a fallback page if an error.
   // Error do occur, it will be generated automatically by the react-router-dom
   // package if we try to visit a page that doesn't exist.
+
+  // @ Dynamic Route
+  // We wanna load this page ProductDetails here for our different products which
+  // is Products component.
+  // We add a new route and then we add some links but what's now the path for
+  // route is?
+  // Ofcourse it could be /productdetail but keeping in mind that We typically
+  // have different products (Products) with different details (ProductDetail)
+  // So while we always wanna load the same component, the data that will be
+  // displayed in there will be different for the different products.
+  // And it would make sense to support paths like /products/p1 so the id of
+  // product 1 maybe. So we might have different paths for these different products.
+  // Now we always wanna load the same page. We always wanna load the product
+  // detail page. But we wanna load it for different paths.
+  // Now we could add multiple paths like this:
+  // { path: '/products/p1', element: <ProductDetailPage /> },
+  // { path: '/products/p2', element: <ProductDetailPage /> },
+  // { path: '/products/p3', element: <ProductDetailPage /> },
+  // But that ofcourse is not a realistic approach because the more products
+  // we have, the more paths must be added. And typically we don't even know
+  // in advance how many products we'll have. And we also will add more products
+  // dynamically.
+  // After all, most websites are pretty dynamic and users and administrators
+  // might be able to add new products. We don't want to add it to code all the
+  // time. Just because a new product was added.
+  // So hardcoding those differnet product Ids in the paths like this, is clearly
+  // not an option.
+  // And that's why React Router DOM supports dynamic path segments or path
+  // parameters as it's also called.
+  // We add a parameter to a path. So such a dynamic path segment by adding
+  // a colon and then any indentifier of our choice like id or product id.
+  // i.e '/products/:id'
+  // colon i.e : is very important. This signals React Router DOM that this part
+  // of the path is dynamic.
+  // So that we actually don't want to load this element ProductDetailPage for
+  // /products/:productId but instead /products/ any value that will be used as
+  // an actual value for this productId placeholder.
+  // We could thereafter have more hard coded segments like /prducts/:productId/new
+  // the :productId section is dynamic
+  // This placeholder here i.e :productId, becomes important once we wanna start
+  // loading different data for the different products.
+  //
+  // So we added this dynamic proute here or this route with a dynamic path,
+  // Now let's say, that on 'ProductDetail' page, we ofcourse wanna know for
+  // which exact product this page was loaded. We wanna know which productId
+  // was used so that we could for example reach out to backend API and a
+  // database to fetch the data for that specific product and display it on
+  // the screen.
+  // And of course, that's also a common scenario and therefore React Router DOM
+  // gives us another tool for getting hold of the actual value used instead
+  // of that placeholder, instead of :productId
+  // And that tool which we get from the React Router DOM is useParams hook.
+
   {
     path: '/',
     element: <RootLayout />,
@@ -75,6 +129,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/products', element: <ProductsPage /> },
+      { path: '/products/:productId', element: <ProductDetailPage /> },
     ],
   },
 ]);
