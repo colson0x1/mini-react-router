@@ -288,16 +288,44 @@ const router = createBrowserRouter([
   * But if we hae a relative path, like that special '..'  two dot path which
   * simply goes back, then this relative prop can be used to control the behavior
   * of React Router.
-
-
  */
 
+  /*
+   * Now related to relative and absolute paths, there's one special property
+   * we can add to our route definitions to some route definitions.
+   * And that is a special property that would, for example, apply to the
+   * HomePage here.
+   * In the end, it doesn't have a path.
+   * Instead, the HomePage should be loaded for the same path as we have it
+   * here on the parent route.
+   * We have two different routes because we want to have that wrapping
+   * layout, though. But it is quite common that we might have such a wrapping
+   * layout route, as we have it here. And then we have one child route
+   * i.e { path: '', element: <HomePage /> }
+   * that should be loaded for the parent's route path i.e path: '/'
+   * We could solve it like this by adding no path i.e path: ''
+   * But alternatively, we can add the special index property and set this to
+   * true.
+   * i.e { index: true, element: <HomePage /> },
+   * This turns this route into a so-called index route which simply means
+   * it's the default route that should be displayed if the parent route's path
+   * is currently active.
+   * So it will not be loaded for products or products/productId. But if we're
+   * on just / nothing in this case, this index route will be activated.
+   * We get the same behavior as before but this is now a different way of
+   * solving this.
+   * We should be aware of this feature called index routes which allows us to
+   * define the default route that should be loaded if the parent routes path
+   * is active.
+   * And that is how we could solve it alternatively to adding this empty
+   * path here.
+   * */
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: '', element: <HomePage /> },
+      { index: true, element: <HomePage /> },
       { path: 'products', element: <ProductsPage /> },
       { path: 'products/:productId', element: <ProductDetailPage /> },
     ],
