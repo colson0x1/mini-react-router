@@ -2,6 +2,7 @@
 // to define our routes that we wanna suport in this application
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/Home';
+import ProductsPage from './pages/Products';
 
 // To this fn we pass an array of route defination objects
 // SO here we provide couple of JavaScript objects where every object represents
@@ -31,7 +32,10 @@ import HomePage from './pages/Home';
 // We need this constant to then tell React that this router should be rendered
 // to the screen so to say or that router should be loaded and should render
 // the appropriate pages to the screen.
-const router = createBrowserRouter([{ path: '/', element: <HomePage /> }, {}]);
+const router = createBrowserRouter([
+  { path: '/', element: <HomePage /> },
+  { path: '/products', element: <ProductsPage /> },
+]);
 
 // And to tell React that this router should be used, we need to import another
 // thing from react-router-dom and that's the RouterProvider Component.
