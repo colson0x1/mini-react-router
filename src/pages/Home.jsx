@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from '../components/MainNavigation';
 
 // Using regular anchor links reloads the page.
@@ -31,11 +31,28 @@ import MainNavigation from '../components/MainNavigation';
 // accordingly and load the appropirate content. It will also change the URL
 // but without sending a new HTTP request.
 function HomePage() {
+  // Call useNavigate to get access to a navigate function
+  const navigate = useNavigate();
+
+  /* @ Navigating programatically */
+  // This is just an example. calling navigate is good with links but not something
+  // we wanna do with buttons
+  // Again we should use a Link instead of this button approach but this is how
+  // we would navigate programatically, if we would need to do so, for example,
+  // because some timer expired or anything like that.
+  function navigateHandler() {
+    // programmatic imperative navigation code for moving to different page
+    navigate('/products');
+  }
+
   return (
     <>
       <h1>Home Page</h1>
       <p>
         Go to <Link to='/products'>the list of products</Link>
+      </p>
+      <p>
+        <button onClick={navigateHandler}>Navigate</button>
       </p>
     </>
   );
