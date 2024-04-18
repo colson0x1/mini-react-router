@@ -3,6 +3,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/Home';
 import ProductsPage from './pages/Products';
+import RootLayout from './Root';
 
 // To this fn we pass an array of route defination objects
 // SO here we provide couple of JavaScript objects where every object represents
@@ -33,8 +34,37 @@ import ProductsPage from './pages/Products';
 // to the screen so to say or that router should be loaded and should render
 // the appropriate pages to the screen.
 const router = createBrowserRouter([
-  { path: '/', element: <HomePage /> },
-  { path: '/products', element: <ProductsPage /> },
+  // Now to actually wrap these two routes i.e HomePage and ProductPage with
+  // RootLayout component, we must add another property to this special route
+  // here called the children property.
+  // That takes an array and it is actually an array of more route definitions
+  // and we can move those two route defintions into this array.
+  // So with that, we make these two route defintion (HomePage & ProductPage)
+  // here, child route definitions of this route i.e of RootLayout.
+  // So this route (RootLayout), acts as a parent route to these children routes
+  // and it acts as a wrapper to these routes.
+  // We also define where these child route components and elements, so the
+  // HomePage and the ProductPage should be rendered. We do that by going
+  // to this RootLayout and adding another special component from React Router DOM
+  // called Outlet.
+  // This Outlet component marks the place where the child route elements should
+  // be rendered to.
+  // The advantage of this approach is that this RootLayout now indeed does
+  // act as a wrapper for these page components i.e HomePage and ProductPage.
+  // So therefore, in the RootLayout component, we can include the MainNavigation
+  // Component and rendering it above the Outlet there.
+  // Having such a root route that acts as a layout is totally standard and
+  // totally normal when using React Router.
+  // We implement layouts like this by adding wrapping routes like this.
+  // So that's the advantage here. We can have path dependent layout wrappers.
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/products', element: <ProductsPage /> },
+    ],
+  },
 ]);
 
 // And to tell React that this router should be used, we need to import another

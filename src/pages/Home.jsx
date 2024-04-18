@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import MainNavigation from '../components/MainNavigation';
 
 // Using regular anchor links reloads the page.
 // Whenever we click on anchor links, technically we're sending a new request
