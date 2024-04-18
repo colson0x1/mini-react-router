@@ -5,13 +5,12 @@
 // So in our case, that would be the HomePage and ProductsPage components.
 import { Outlet } from 'react-router-dom';
 import MainNavigation from './components/MainNavigation';
-import classes from './Root.module.css';
 
 function RootLayout() {
   return (
     <>
       <MainNavigation />
-      <main className={classes.content}>
+      <main>
         <Outlet />
       </main>
     </>

@@ -1,6 +1,7 @@
 // createBrowserRouter is a fn provided by React Router DOM which allows us
 // to define our routes that we wanna suport in this application
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ErrorPage from './pages/Error';
 import HomePage from './pages/Home';
 import ProductsPage from './pages/Products';
 import RootLayout from './Root';
@@ -57,9 +58,20 @@ const router = createBrowserRouter([
   // totally normal when using React Router.
   // We implement layouts like this by adding wrapping routes like this.
   // So that's the advantage here. We can have path dependent layout wrappers.
+
+  // We can add the special errorElement property to our route definitions
+  // to define which page should be loaded if an error is created.
+  // When we enter a URL that doesn't exist, the react-router-dom package
+  // will generate an error, and that error will automatically bubble up
+  // to our root route definition.
+  // Therefore here on the / path we can add  errorElement property to render
+  // error page as a fallback page if an error.
+  // Error do occur, it will be generated automatically by the react-router-dom
+  // package if we try to visit a page that doesn't exist.
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/products', element: <ProductsPage /> },
